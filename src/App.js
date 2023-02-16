@@ -1,23 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import { useContext, useRef } from 'react';
+import DataContext from './state/DataContext';
 
 function App() {
+  const {state, dispatch} = useContext(DataContext)
+  const inputRef = useRef()
+
+  const changeName = () => dispatch({type: "CHANGENAME", payload: inputRef.current.value})
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Current Name: {state.name}</h1>
+      <input type="text" ref={inputRef}/>
+      <button onClick={changeName}>Change Name</button>
     </div>
   );
 }
